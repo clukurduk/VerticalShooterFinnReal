@@ -22,10 +22,13 @@ public class Attacking : MonoBehaviour
         //instantiates hitbox from anchors location
         if(Input.GetKeyDown("mouse 0"))
         {
-            anchorPos=anchor.transform.position;
-            anchorRot = anchor.transform.rotation;
+            /*
+            anchorPos=anchor.transform.localPosition;
+            anchorRot = anchor.transform.localRotation;
             
-            //Instantiate(swordHitbox, new Vector3(0,2,0), anchorRot, anchor);
+            GameObject g= Instantiate(swordHitbox, new Vector3(0,2,0) - anchorPos, Quaternion.identity);
+            g.transform.up = anchor.transform.up;
+            */
         }
     }
 }

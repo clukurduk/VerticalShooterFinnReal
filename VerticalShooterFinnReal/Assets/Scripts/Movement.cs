@@ -19,18 +19,18 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+        
         if (!moveable)
         {
             speed = 0f;
-            Debug.Log("Unmoveable");
+            //Debug.Log("Unmoveable");
         }
         else if (moveable)
         {
             speed = 3.5f;
-            Debug.Log("Moveable");
+            //Debug.Log("Moveable");
         }
-        */
+        
 
             xDirection = Input.GetAxis("Horizontal");
             if (xDirection > 0f)
