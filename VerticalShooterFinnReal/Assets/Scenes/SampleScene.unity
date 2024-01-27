@@ -646,12 +646,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 673200027}
     - target: {fileID: 1981027978405249130, guid: 0bea372724f329e4494e8187551383b3, type: 3}
+      propertyPath: maxSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981027978405249130, guid: 0bea372724f329e4494e8187551383b3, type: 3}
+      propertyPath: dashForce
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981027978405249130, guid: 0bea372724f329e4494e8187551383b3, type: 3}
+      propertyPath: slowSpeed
+      value: 1.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981027978405249130, guid: 0bea372724f329e4494e8187551383b3, type: 3}
       propertyPath: swordHitBox
       value: 
       objectReference: {fileID: 521144886555872913, guid: bdebf045247790140a43e43f7d709aa3, type: 3}
     - target: {fileID: 1981027978405249130, guid: 0bea372724f329e4494e8187551383b3, type: 3}
+      propertyPath: dashMaxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981027978405249130, guid: 0bea372724f329e4494e8187551383b3, type: 3}
       propertyPath: distanceFromPlayer
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981027978405249130, guid: 0bea372724f329e4494e8187551383b3, type: 3}
+      propertyPath: dashAccelerationSpeed
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 2668239631968754101, guid: 0bea372724f329e4494e8187551383b3, type: 3}
       propertyPath: m_Name

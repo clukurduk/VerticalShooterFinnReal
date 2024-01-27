@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     public bool moveable;
     public Rigidbody2D rb;
     public float xDirection = 0f, yDirection = 0f;
-    [SerializeField] float maxSpeed = 7.5f;
+    [SerializeField] float maxSpeed = 3.5f;
     //spawnhitbox variables
     float currentSpeed;
     private Ray ray;
@@ -22,6 +22,9 @@ public class Movement : MonoBehaviour
     [SerializeField] float slowSpeed;
 
     [SerializeField] GameObject swordParent;
+
+    [SerializeField] float dashForce;
+
 
 
     // Start is called before the first frame update
@@ -69,29 +72,34 @@ public class Movement : MonoBehaviour
 
 
         //spawn hitbox script
-        if (Input.GetKeyDown("mouse 0"))
+        if (Input.GetKeyDown("mouse 0")&&moveable==true)
         {
-            //ray = new Ray(transform.position, Vector3.Normalize(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position));
-
-            Vector3 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
-            direction.z = 0;
-            direction.Normalize();
-            spawnPoint = transform.localPosition + direction * distanceFromPlayer; 
-
-            //Quaternion rot = Quaternion.Euler(ray.direction.x, ray.direction.y, ray.direction.z);
-            //Debug.Log(rot);
-
-            go = Instantiate(swordHitBox, spawnPoint, Quaternion.identity, transform);
-            go.transform.up = direction;
-
+            attacking();
 
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+           // Vector2 dir = (xDirection*dashForce, yDirection*dashForce);
+
+
+          //rb.AddForce(dir, ForceMode2D.Impulse);
+
+        }
+
 
         if(go != null)
         {
             moveable = false;
-            currentSpeed =currentSpeed/slowSpeed;
-            Debug.Log(currentSpeed);
+
+            if(currentSpeed < .0001)
+            {
+                currentSpeed = 0;
+            }
+            else
+            {
+                currentSpeed = currentSpeed / slowSpeed;
+            }
         }
         else
         {
@@ -100,5 +108,26 @@ public class Movement : MonoBehaviour
         }
     }
 
+    private void attacking()
+    {
+        //ray = new Ray(transform.position, Vector3.Normalize(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position));
 
+        Vector3 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+        direction.z = 0;
+        direction.Normalize();
+        spawnPoint = transform.position + direction * distanceFromPlayer;
+
+        //Quaternion rot = Quaternion.Euler(ray.direction.x, ray.direction.y, ray.direction.z);
+        //Debug.Log(rot);
+
+        go = Instantiate(swordHitBox, spawnPoint, Quaternion.identity, transform);
+        go.transform.up = direction;
+    }
+
+
+
+    void debug(string info)
+    {
+        Debug.Log(info);
+    }
 }

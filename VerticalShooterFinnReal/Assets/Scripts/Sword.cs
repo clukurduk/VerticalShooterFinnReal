@@ -8,9 +8,11 @@ public class Sword : MonoBehaviour
     [SerializeField] int spawnGoal;
     private int count;
     [SerializeField] Collider2D yo;
+    [SerializeField] SpriteRenderer sprite;
     // Start is called before the first frame update
     void Awake()
     {
+        sprite= GetComponent<SpriteRenderer>();
         yo = GetComponent<Collider2D>();
         count = 0;
     }
@@ -23,6 +25,7 @@ public class Sword : MonoBehaviour
         if(count >= spawnGoal)
         {
             yo.enabled=true;
+            sprite.enabled = true;
         }
         if (count >= despawnGoal)
         {
