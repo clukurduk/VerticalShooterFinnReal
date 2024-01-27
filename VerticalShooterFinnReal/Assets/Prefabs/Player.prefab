@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4191172783127725332}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,10 +99,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveable: 0
-  rb: {fileID: 0}
+  rb: {fileID: 4191172783127725332}
   xDirection: 0
   yDirection: 0
   speed: 3.5
+  distanceFromPlayer: 0
+  swordHitBox: {fileID: 0}
+  anchor: {fileID: 0}
 --- !u!50 &4191172783127725332
 Rigidbody2D:
   serializedVersion: 4

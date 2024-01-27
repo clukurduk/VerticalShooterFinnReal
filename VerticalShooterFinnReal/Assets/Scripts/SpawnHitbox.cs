@@ -7,11 +7,9 @@ public class SpawnHitbox : MonoBehaviour
 {
     private Ray ray;
     private Vector3 spawnPoint;
-    private Quaternion rayAngle;
     [SerializeField] private float distanceFromPlayer;
     [SerializeField] GameObject swordHitBox;
     [SerializeField] GameObject anchor;
-    [SerializeField] GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +30,8 @@ public class SpawnHitbox : MonoBehaviour
 
             GameObject go = Instantiate(swordHitBox, spawnPoint, Quaternion.identity);
             go.transform.up = new Vector3(ray.direction.x, ray.direction.y, 0.0f);
+
+
         }
     }
 }
