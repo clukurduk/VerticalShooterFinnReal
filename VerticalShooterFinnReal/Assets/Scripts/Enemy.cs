@@ -24,8 +24,10 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Hit");
         if (other.gameObject.CompareTag("PlayerHitBox"))
         {
+            Debug.Log("Dead");
             Destroy(this.gameObject);
         }
     }

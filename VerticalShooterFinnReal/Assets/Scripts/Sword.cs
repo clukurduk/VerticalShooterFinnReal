@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    [SerializeField]int goal;
+    [SerializeField]int despawnGoal;
     private int count;
     // Start is called before the first frame update
     void Awake()
@@ -18,11 +18,10 @@ public class Sword : MonoBehaviour
     {
         
         count++;
-        if (count >= goal)
+        if (count >= despawnGoal)
         {
-
+            
             Object.Destroy(this.gameObject);
         }
-        Debug.Log(count);
     }
 }

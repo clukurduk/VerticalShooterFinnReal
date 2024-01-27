@@ -38,12 +38,12 @@ public class Movement : MonoBehaviour
         if (!moveable)
         {
             speed = 0f;
-            Debug.Log("Unmoveable");
+
         }
         else if (moveable)
         {
             speed = 3.5f;
-            Debug.Log("Moveable");
+
         }
         
 
@@ -106,5 +106,6 @@ public class Movement : MonoBehaviour
             moveable = true;
         }
     }
-    
+
+       
 }
