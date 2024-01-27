@@ -5,11 +5,13 @@ using UnityEngine;
 public class Sword : MonoBehaviour
 {
     [SerializeField]int despawnGoal;
+    [SerializeField] int spawnGoal;
     private int count;
+    [SerializeField] Collider2D yo;
     // Start is called before the first frame update
     void Awake()
     {
-        
+        yo = GetComponent<Collider2D>();
         count = 0;
     }
 
@@ -18,6 +20,10 @@ public class Sword : MonoBehaviour
     {
         
         count++;
+        if(count >= spawnGoal)
+        {
+            yo.enabled=true;
+        }
         if (count >= despawnGoal)
         {
             

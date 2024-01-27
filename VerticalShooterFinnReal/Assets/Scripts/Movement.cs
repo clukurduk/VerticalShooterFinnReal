@@ -9,8 +9,9 @@ public class Movement : MonoBehaviour
     public bool moveable;
     public Rigidbody2D rb;
     public float xDirection = 0f, yDirection = 0f;
-    [SerializeField] float speed = 7.5f;
+    [SerializeField] float maxSpeed = 7.5f;
     //spawnhitbox variables
+    float currentSpeed;
     private Ray ray;
     private Vector3 spawnPoint;
     [SerializeField] private float distanceFromPlayer;
@@ -18,6 +19,10 @@ public class Movement : MonoBehaviour
     [SerializeField] GameObject anchor;
     GameObject go;
     int count, current;
+    [SerializeField] float slowSpeed;
+
+    [SerializeField] GameObject swordParent;
+
 
     // Start is called before the first frame update
 
@@ -34,29 +39,14 @@ public class Movement : MonoBehaviour
     {
         count++;
 
-
-        if (!moveable)
-        {
-            speed = 0f;
-
-        }
-        else if (moveable)
-        {
-            speed = 3.5f;
-
-        }
-        
-
-        
-
             xDirection = Input.GetAxis("Horizontal");
             if (xDirection > 0f)
             {
-                rb.velocity = new Vector2(xDirection * speed, rb.velocity.y);
+                rb.velocity = new Vector2(xDirection * currentSpeed, rb.velocity.y);
             }
             else if (xDirection < 0f)
             {
-                rb.velocity = new Vector2(xDirection * speed, rb.velocity.y);
+                rb.velocity = new Vector2(xDirection * currentSpeed, rb.velocity.y);
             }
             else
             {
@@ -66,11 +56,11 @@ public class Movement : MonoBehaviour
             yDirection = Input.GetAxis("Vertical");
             if (yDirection > 0f)
             {
-                rb.velocity = new Vector2(rb.velocity.x, yDirection * speed);
+                rb.velocity = new Vector2(rb.velocity.x, yDirection * currentSpeed);
             }
             else if (yDirection < 0f)
             {
-                rb.velocity = new Vector2(rb.velocity.x, yDirection * speed);
+                rb.velocity = new Vector2(rb.velocity.x, yDirection * currentSpeed);
             }
             else
             {
@@ -86,12 +76,12 @@ public class Movement : MonoBehaviour
             Vector3 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
             direction.z = 0;
             direction.Normalize();
-            spawnPoint = transform.position + direction * distanceFromPlayer;
+            spawnPoint = transform.localPosition + direction * distanceFromPlayer; 
 
             //Quaternion rot = Quaternion.Euler(ray.direction.x, ray.direction.y, ray.direction.z);
             //Debug.Log(rot);
 
-            go = Instantiate(swordHitBox, spawnPoint, Quaternion.identity);
+            go = Instantiate(swordHitBox, spawnPoint, Quaternion.identity, transform);
             go.transform.up = direction;
 
 
@@ -100,12 +90,15 @@ public class Movement : MonoBehaviour
         if(go != null)
         {
             moveable = false;
+            currentSpeed =currentSpeed/slowSpeed;
+            Debug.Log(currentSpeed);
         }
         else
         {
+            currentSpeed = maxSpeed;
             moveable = true;
         }
     }
 
-       
+
 }
