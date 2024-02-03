@@ -1,24 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
-public class GManager : MonoBehaviour
+public class SceneStagnant : MonoBehaviour
 {
-    public static int Score = 0;
-
-    [SerializeField] TextMeshProUGUI score;
-
+    public int playerScore;
+    [SerializeField] TextMeshProUGUI tmp;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        tmp.text = playerScore.ToString();
     }
 }

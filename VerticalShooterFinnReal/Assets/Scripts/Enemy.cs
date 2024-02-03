@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Enemy : MonoBehaviour
 {
     private GameObject player;
     Vector3 playerPosition;
     [SerializeField] public float speed = 4f;
+    GameObject sceneStagnant;
+    int playerScore;
+
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        sceneStagnant = GameObject.Find("SceneStagnant");
+
     }
 
     // Update is called once per frame
@@ -29,6 +37,8 @@ public class Enemy : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
+            
+
             sceneSwap();
         }
     }
@@ -39,12 +49,13 @@ public class Enemy : MonoBehaviour
 
         if (other.gameObject.CompareTag("PlayerHitBox"))
         {
+            sceneStagnant.GetComponent<SceneStagnant>().playerScore += 100;
             Destroy(gameObject);
         }
     }
 
     void sceneSwap()
     {
-
+        SceneManager.LoadScene("EndScreen");
     }
 }

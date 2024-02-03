@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -19,11 +20,19 @@ public class Movement : MonoBehaviour
     [SerializeField] GameObject anchor;
     GameObject go;
     int count, current;
-    [SerializeField] float slowSpeed;
+    [SerializeField] float slowSpeed, dashLength;
 
     [SerializeField] GameObject swordParent;
-
+    [SerializeField] float accelerationSpeed;
     [SerializeField] float dashForce;
+    SpriteRenderer spriteRenderer;
+
+    Coroutine dash;
+
+    [SerializeField] float maxStamina, staminaRegen, swordStamina, dashStamina;
+    float currentStamina;
+    BoxCollider2D boxCollider;
+    [SerializeField] GameObject tmp;
 
 
 
@@ -32,24 +41,38 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        currentStamina = maxStamina;
         count = 0;
         moveable = true;
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         count++;
+        if (currentStamina < maxStamina&&currentStamina+staminaRegen<maxStamina)
+        {
+            currentStamina += staminaRegen;
+        }
+        else if (currentStamina < maxStamina)
+        {
+            currentStamina = maxStamina;
+        }
+
 
             xDirection = Input.GetAxis("Horizontal");
             if (xDirection > 0f)
             {
                 rb.velocity = new Vector2(xDirection * currentSpeed, rb.velocity.y);
+                spriteRenderer.flipX = false;
             }
             else if (xDirection < 0f)
             {
                 rb.velocity = new Vector2(xDirection * currentSpeed, rb.velocity.y);
+            spriteRenderer.flipX = true;
             }
             else
             {
@@ -72,18 +95,17 @@ public class Movement : MonoBehaviour
 
 
         //spawn hitbox script
-        if (Input.GetKeyDown("mouse 0")&&moveable==true)
+        if (Input.GetKeyDown("mouse 0")&&moveable==true&&currentStamina>=swordStamina)
         {
+            currentStamina -= swordStamina;
             attacking();
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)&&moveable==true && currentStamina >= dashStamina)
         {
-           // Vector2 dir = (xDirection*dashForce, yDirection*dashForce);
-
-
-          //rb.AddForce(dir, ForceMode2D.Impulse);
+            currentStamina -= dashStamina;
+            dash = StartCoroutine(Co_Dash());
 
         }
 
@@ -106,6 +128,10 @@ public class Movement : MonoBehaviour
             currentSpeed = maxSpeed;
             moveable = true;
         }
+
+
+
+        tmp.transform.localScale = new Vector3(currentStamina / maxStamina,1);
     }
 
     private void attacking()
@@ -131,5 +157,19 @@ public class Movement : MonoBehaviour
         Debug.Log(info);
     }
 
+    IEnumerator Co_Dash()
+    {
+        boxCollider.enabled = false;
+        int count=0;
+        while (count <= dashLength)
+        {
+            rb.velocity = rb.velocity * accelerationSpeed;
+            yield return new WaitForEndOfFrame();
+            count++;
+
+        }
+        yield return new WaitForSeconds(.5f);
+        boxCollider.enabled = true;
+    }
 
 }

@@ -27,7 +27,7 @@ public class SpawnEnemy : MonoBehaviour
         {
             
             Instantiate(enemy, transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(10);
 
         }
     }
